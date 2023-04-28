@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 /**
  * @author Dongcp
@@ -25,36 +26,30 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    /**
-     * 员工登录
-     * @param request
-     * @param employee
-     * @return
-     */
     @PostMapping("/login")
-    public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee) {
+    public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee){
         String password = employee.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
 
-        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Employee::getUsername, employee.getUsername());
-        Employee emp = employeeService.getOne(queryWrapper);
+        LambdaQueryWrapper<Employee> employeeLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        employeeLambdaQueryWrapper.eq(Employee::getUsername,employee.getUsername());
+        Employee emp = employeeService.getOne(employeeLambdaQueryWrapper);
 
-        if(emp == null) {
-            return R.error("登录失败！");
+        if (emp == null){
+            return R.error("登录失败");
         }
 
         if (!emp.getPassword().equals(password)){
-            return R.error("登录失败！");
+            return R.error("登录失败");
         }
 
         if (emp.getStatus() == 0){
-            return R.error("该账号已禁用！");
+            return R.error("账号已经禁用！");
         }
 
-        request.getSession().setAttribute("employee", emp.getId());
+        request.getSession().setAttribute("employee",emp.getId());
         return R.success(emp);
-    }
+   }
 
     /**
      * 员工退出
@@ -64,7 +59,32 @@ public class EmployeeController {
     @PostMapping("/logout")
     public R<String> logout(HttpServletRequest request){
         request.getSession().removeAttribute("employee");
-        return R.success("退出成功!");
+        return R.success("退出成功！");
     }
 
+
+    /**
+     * 新增员工
+     * @param request
+     * @param employee
+     * @return
+     */
+    @PostMapping()
+    public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
+        log.info("新增员工信息：{}",employee.toString());
+
+        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        Long empId = (Long) request.getSession().getAttribute("employee");
+
+        employee.setCreateUser(empId);
+        employee.setUpdateUser(empId);
+
+        employeeService.save(employee);
+
+        return R.success("新增员工成功");
+    }
 }
