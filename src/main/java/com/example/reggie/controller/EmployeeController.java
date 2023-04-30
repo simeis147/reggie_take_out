@@ -30,68 +30,53 @@ public class EmployeeController {
         String password = employee.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
 
-        LambdaQueryWrapper<Employee> employeeLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        employeeLambdaQueryWrapper.eq(Employee::getUsername,employee.getUsername());
-        Employee emp = employeeService.getOne(employeeLambdaQueryWrapper);
+        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Employee::getUsername, employee.getUsername());
+        Employee emp = employeeService.getOne(queryWrapper);
 
         if (emp == null){
             return R.error("登录失败");
         }
-
         if (!emp.getPassword().equals(password)){
-            return R.error("登录失败");
+            return R.error("登陆失败");
         }
-
         if (emp.getStatus() == 0){
-            return R.error("账号已经禁用！");
+            return R.error("用户被锁定！");
         }
 
         request.getSession().setAttribute("employee",emp.getId());
-        return R.success(emp);
-   }
 
-    /**
-     * 员工退出
-     * @param request
-     * @return
-     */
+        return R.success(emp);
+    }
+
     @PostMapping("/logout")
     public R<String> logout(HttpServletRequest request){
         request.getSession().removeAttribute("employee");
-        return R.success("退出成功！");
+        return R.success("退出成功");
     }
 
-
-    /**
-     * 新增员工
-     * @param request
-     * @param employee
-     * @return
-     */
-    @PostMapping()
+    @PostMapping
     public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
-        log.info("新增员工信息：{}",employee.toString());
+        log.info("新增员工，员工信息为：{}",employee.toString());
 
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
 
-        employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
+        employee.setCreateTime(LocalDateTime.now());
 
-        Long empId = (Long) request.getSession().getAttribute("employee");
-
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
+        Long empID = (Long) request.getSession().getAttribute("employee");
+        employee.setUpdateUser(empID);
+        employee.setCreateUser(empID);
 
         employeeService.save(employee);
-
         return R.success("新增员工成功！");
     }
 
     @GetMapping("/page")
-    public R<Page> page(int page, int pageSize, String name){
-        log.info("page = {} , pageSize = {}, name = {}",page,pageSize,name);
-
-        Page pageInfo = new Page(page, pageSize);
+    public R<Page> page(int page,int pageSize,String name){
+        log.info("page = {},pageSize = {},name = {}" ,page,pageSize,name);
+        //构造分页构造器
+        Page pageInfo = new Page(page,pageSize);
 
         //构造条件构造器
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper();
@@ -106,29 +91,25 @@ public class EmployeeController {
     }
 
     @PutMapping
-    public R<String> update(HttpServletRequest request, @RequestBody Employee employee){
+    public R<String> update(HttpServletRequest request,@RequestBody Employee employee){
         log.info(employee.toString());
 
-        Long empId = (Long) request.getSession().getAttribute("employee");
+        Long empId = (Long)request.getSession().getAttribute("employee");
 
         employee.setUpdateTime(LocalDateTime.now());
         employee.setUpdateUser(empId);
-
         employeeService.updateById(employee);
 
-        return R.success("修改信息成功！");
+        return R.success("员工信息修改成功");
     }
 
     @GetMapping("/{id}")
     public R<Employee> getById(@PathVariable Long id){
         log.info("根据id查询员工信息...");
-        Employee emp = employeeService.getById(id);
-
-        if (emp != null){
-            return R.success(emp);
+        Employee employee = employeeService.getById(id);
+        if(employee != null){
+            return R.success(employee);
         }
-        return R.error("查无此人");
+        return R.error("没有查询到对应员工信息");
     }
-
-
 }

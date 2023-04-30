@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 检查用户是否已经完成登录
+ * @author 董成鹏
  */
-
-@WebFilter(filterName = "loginCheckFilter",urlPatterns = "/*")
+@WebFilter(filterName = "loginCheckFilter", urlPatterns = "/*")
 @Slf4j
 public class LoginCheckFilter implements Filter {
     public static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
@@ -26,40 +25,33 @@ public class LoginCheckFilter implements Filter {
 
         String requestURI = request.getRequestURI();
 
-        log.info("拦截到请求：{}",requestURI);
-
         String[] urls = new String[]{
-            "/employee/login",
-            "/employee/logout",
-            "/backend/**",
-            "/front/**"
+                "/employee/login",
+                "/employee/logout",
+                "/backend/**",
+                "/front/**"
         };
 
-        boolean check = check(urls,requestURI);
+        Boolean check = check(urls,requestURI);
 
         if (check){
-            log.info("本次{}请求通过，不用处理",requestURI);
+            log.info("本次请求{}不需要处理",requestURI);
             filterChain.doFilter(request,response);
-            return;
+            return ;
         }
 
         if (request.getSession().getAttribute("employee") != null){
-            log.info("用户已登录，用户id为{}",request.getSession().getAttribute("employee"));
+            log.info("用户已经登录，用户id为{}",request.getSession().getAttribute("employee"));
             filterChain.doFilter(request,response);
-            return;
+            return ;
         }
 
         log.info("用户未登录");
-        response.getWriter().write(JSON.toJSONString(R.error("未登录")));
+        response.getWriter().write(JSON.toJSONString(R.error("NOTLOGIN")));
+        return ;
     }
 
-    /**
-     * 路径匹配，检查本次请求是否需要放行
-     * @param urls
-     * @param requestURI
-     * @return
-     */
-    private boolean check(String[] urls, String requestURI) {
+    private Boolean check(String[] urls, String requestURI) {
         for (String url : urls) {
             boolean match = PATH_MATCHER.match(url,requestURI);
             if (match){
