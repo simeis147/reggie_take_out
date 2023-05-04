@@ -23,6 +23,9 @@ public class LoginCheckFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        long id = Thread.currentThread().getId();
+        log.info("线程的ID为 {}", id);
+
         String requestURI = request.getRequestURI();
 
         String[] urls = new String[]{
