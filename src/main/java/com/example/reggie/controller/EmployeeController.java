@@ -93,7 +93,7 @@ public class EmployeeController {
     @PutMapping
     public R<String> update(HttpServletRequest request,@RequestBody Employee employee){
         long id = Thread.currentThread().getId();
-        log.info("线程的ID为 {}", id);
+        log.info("EmployeeController线程的ID为 {}", id);
 
         log.info(employee.toString());
 
