@@ -32,6 +32,12 @@ public class CategoryController {
         return R.success("新增分类成功！");
     }
 
+    /**
+     * 分页查询
+     * @param page
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/page")
     public R<Page> page(int page, int pageSize){
         Page<Category> pageInfo = new Page<>(page, pageSize);
@@ -41,5 +47,12 @@ public class CategoryController {
 
         categoryService.page(pageInfo,queryWrapper);
         return R.success(pageInfo);
+    }
+
+    @DeleteMapping
+    public R<String> delete(Long id){
+        log.info("根据id删除，{}",id);
+        categoryService.removeById(id);
+        return R.success("分类信息删除成功！");
     }
 }
