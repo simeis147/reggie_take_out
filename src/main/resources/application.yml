@@ -1,5 +1,7 @@
 server:
   port: 8080
+reggie:
+  path: D:\img\
 spring:
   application:
     #应用的名称，可选

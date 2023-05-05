@@ -51,7 +51,7 @@ public class CategoryController {
 
     /**
      * 根据id删除分类
-     * @param id
+     * @param ids
      * @return
      */
     @DeleteMapping
@@ -62,5 +62,12 @@ public class CategoryController {
         categoryService.remove(ids);
 
         return R.success("分类信息删除成功");
+    }
+
+    @PutMapping
+    public R<String> update(@RequestBody Category category){
+        log.info("修改菜单 ！ {}",category);
+        categoryService.updateById(category);
+        return R.success("修改菜单成功！");
     }
 }
