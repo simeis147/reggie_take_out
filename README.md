@@ -14,7 +14,7 @@
 
 ### 2.1 项目介绍
 
-https://pic.peo.pw/a/2023/05/06/6455b59d7832e.png
+![image-20210726000655646.png](https://pic.peo.pw/a/2023/05/06/6455b59d7832e.png)
 
 瑞吉外卖是专为餐饮企业（餐厅、饭店）定制的一款软件产品，包括 **系统管理后台** 和 **移动端应用** 两部分
 
@@ -53,7 +53,7 @@ https://pic.peo.pw/a/2023/05/06/6455b59d7832e.png
 
 ### 2.3 技术选型
 
-https://pic.peo.pw/a/2023/05/06/6455b59c54c19.png
+[https://pic.peo.pw/a/2023/05/06/6455b59c54c19.png](https://pic.peo.pw/a/2023/05/06/6455b59cb4910.png)
 
 #### 1. 用户层
 
@@ -97,7 +97,7 @@ https://pic.peo.pw/a/2023/05/06/6455b59c54c19.png
 
 ### 2.4 功能架构
 
-https://pic.peo.pw/a/2023/05/06/6455b59cb4910.png
+[https://pic.peo.pw/a/2023/05/06/6455b59cb4910.png](https://pic.peo.pw/a/2023/05/06/6455b59c54c19.png)
 
 **1. 移动端前台功能**:
 
