@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -18,21 +19,21 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SetmealDish implements Serializable {
-    private static final long SerialVersionUID = 1L;
+    private static final long serialVersionUID = 1;
 
     private Long id;
 
-    private Long categoryId;
+    private Long setmealId;
+
+    private String dishId;
 
     private String name;
 
-    private Integer status;
+    private BigDecimal price;
 
-    private String code;
+    private Integer copies;
 
-    private String description;
-
-    private String image;
+    private Integer sort;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
@@ -41,10 +42,10 @@ public class SetmealDish implements Serializable {
     private LocalDateTime updateTime;
 
     @TableField(fill = FieldFill.INSERT)
-    private Long updateUser;
+    private Long createUser;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Long createUser;
+    private Long updateUser;
 
     private Integer isDeleted;
 }

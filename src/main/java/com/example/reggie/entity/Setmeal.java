@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Setmeal implements Serializable {
-    private static final long serialVersionUID = 1;
+    private static final long SerialVersionUID = 1L;
 
     private Long id;
 
@@ -43,10 +43,10 @@ public class Setmeal implements Serializable {
     private LocalDateTime updateTime;
 
     @TableField(fill = FieldFill.INSERT)
-    private Long createUser;
+    private Long updateUser;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Long updateUser;
+    private Long createUser;
 
     private Integer isDeleted;
 }
