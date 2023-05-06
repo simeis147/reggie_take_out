@@ -53,7 +53,7 @@
 
 ### 2.3 技术选型
 
-[https://pic.peo.pw/a/2023/05/06/6455b59c54c19.png](https://pic.peo.pw/a/2023/05/06/6455b59cb4910.png)
+![image-20210726005437857.png](https://pic.peo.pw/a/2023/05/06/6455b59c54c19.png)
 
 #### 1. 用户层
 
@@ -97,7 +97,7 @@
 
 ### 2.4 功能架构
 
-[https://pic.peo.pw/a/2023/05/06/6455b59cb4910.png](https://pic.peo.pw/a/2023/05/06/6455b59c54c19.png)
+![image-20210726122825225.png](https://pic.peo.pw/a/2023/05/06/6455b59cb4910.png)
 
 **1. 移动端前台功能**:
 
