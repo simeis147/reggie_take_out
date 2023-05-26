@@ -2,7 +2,7 @@ package com.example.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.reggie.Common.R;
+import com.example.reggie.common.R;
 import com.example.reggie.entity.Category;
 import com.example.reggie.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;

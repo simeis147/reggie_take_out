@@ -1,4 +1,4 @@
-package com.example.reggie.Common;
+package com.example.reggie.common;
 
 /**
  * @author 董成鹏

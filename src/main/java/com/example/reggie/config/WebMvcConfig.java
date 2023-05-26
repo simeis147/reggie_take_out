@@ -1,6 +1,6 @@
 package com.example.reggie.config;
 
-import com.example.reggie.Common.JacksonObjectMapper;
+import com.example.reggie.common.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
