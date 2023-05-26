@@ -64,6 +64,12 @@ public class EmployeeController {
         return R.success("退出成功");
     }
 
+    /**
+     * 新增员工
+     * @param request
+     * @param employee
+     * @return
+     */
     @PostMapping
     public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
         log.info("新增员工，员工信息为：{}",employee.toString());
