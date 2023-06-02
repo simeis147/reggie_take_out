@@ -1,10 +1,7 @@
 server:
   port: 8080
-reggie:
-  path: D:\img\
 spring:
   application:
-    #应用的名称，可选
     name: reggie_take_out
   datasource:
     druid:
@@ -20,3 +17,5 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
+reggie:
+  path: D:\img\
