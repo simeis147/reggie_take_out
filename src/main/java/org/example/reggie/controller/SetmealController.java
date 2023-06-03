@@ -2,11 +2,13 @@ package org.example.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import lombok.extern.slf4j.Slf4j;
 import org.example.reggie.common.R;
 import org.example.reggie.dto.SetmealDto;
 import org.example.reggie.entity.Category;
 import org.example.reggie.entity.Setmeal;
+import org.example.reggie.entity.SetmealDish;
 import org.example.reggie.service.CategoryService;
 import org.example.reggie.service.SetmealDishService;
 import org.example.reggie.service.SetmealService;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -82,5 +85,38 @@ public class SetmealController {
 
         setmealDtoPage.setRecords(list);
         return R.success(setmealDtoPage);
+    }
+
+    /**
+     * 删除套餐
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public R<String> delete(@RequestParam List<Long> ids){
+        log.info("ids:{}",ids);
+        setmealService.removeWithDish(ids);
+        return R.success("删除套餐成功");
+    }
+
+    /**
+     * 根据id查询套餐信息和对应的菜品信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public R<SetmealDto> getById(@PathVariable Long id){
+        log.info("id: {}",id);
+
+        SetmealDto setmealDto = setmealService.updateByIdWithDish(id);
+
+        return R.success(setmealDto);
+    }
+
+    @PutMapping
+    public R<String> udpateSetmealDto(@RequestBody SetmealDto setmealDto){
+        log.info("setmealDto: {}",setmealDto.toString());
+        setmealService.updateSetmealWithDish(setmealDto);
+        return R.success("修改套餐成功！");
     }
 }
