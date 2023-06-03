@@ -116,6 +116,7 @@ public class SetmealController {
     @PutMapping
     public R<String> udpateSetmealDto(@RequestBody SetmealDto setmealDto){
         log.info("setmealDto: {}",setmealDto.toString());
+
         setmealService.updateSetmealWithDish(setmealDto);
         return R.success("修改套餐成功！");
     }
