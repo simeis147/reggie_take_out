@@ -85,7 +85,6 @@ public class ShoppingCartController {
     public R<String> clean(){
         LambdaQueryWrapper<ShoppingCart> qw = new LambdaQueryWrapper<>();
         qw.eq(ShoppingCart::getId,BaseContext.getCurrentId());
-
         shoppingCartService.remove(qw);
         return R.success("清空购物车成功！");
     }
