@@ -14,7 +14,7 @@
 
 ### 2.1 项目介绍
 
-![ ](https://simeis147-github-io.oss-cn-shenzhen.aliyuncs.com/BackEnd/SpringCloud/20230627121437.png)
+![ ](https://simeis147.oss-cn-shenzhen.aliyuncs.com/img/20230602172827.png)
 
 瑞吉外卖是专为餐饮企业（餐厅、饭店）定制的一款软件产品，包括 **系统管理后台** 和 **移动端应用** 两部分
 
